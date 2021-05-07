@@ -17,9 +17,10 @@ body {
 .container-fluid > main {
   background-color: #f3f4ed;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 30px;
+  border-radius: 10px;
   height: 800px;
   max-height: 100vh;
+  overflow-y: auto;
 }
 
 aside {
@@ -59,4 +60,26 @@ hr {
     height: 100%;
     border-radius: 0;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e84545;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
 }
