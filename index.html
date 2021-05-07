@@ -25,18 +25,18 @@
                     <section class="container-fluid">
                         <h2 class="fs-3"><i class="fa fa-angle-right"></i> Describe el autómata finito</h2>
                         <section class="row mt-3">
-                            <section class="col-md-3 mt-3">
-                                <section class="form-group">
-                                    <label for="qty-estados" class="word-wrap"><strong>Estados</strong></label>
-                                    <input type="number" min="1" placeholder="1" class="form-control" id="qty-estados"
-                                        required>
-                                </section>
-                            </section>
-                            <section class="col-md-3 mt-3">
+                            <section class="col-md-4 mt-3">
                                 <section class="form-group">
                                     <label for="alfa-estados" class="word-wrap"><strong>Alfabeto</strong></label>
                                     <input type="text" placeholder="Escribe el alfabeto" class="form-control"
                                         id="alfa-estados" required>
+                                </section>
+                            </section>
+                            <section class="col-md-2 mt-3">
+                                <section class="form-group">
+                                    <label for="qty-estados" class="word-wrap"><strong>Estados</strong></label>
+                                    <input type="number" min="1" value="1" class="form-control" id="qty-estados"
+                                        required>
                                 </section>
                             </section>
                         </section>
@@ -44,10 +44,14 @@
                         <h3><i class="fa fa-angle-right"></i> Estados</h3>
                         <section class="row mt-3">
                             <section class="col-md-6 mt-3">
-                                <section class="form-group fit red-border p-3">
-                                    <label><strong>Número de vale</strong></label>
-                                    <input type="text" placeholder="Introduce el numero del vale" class="form-control"
-                                        name="NoVale">
+                                <section id="estados" class="form-group fit red-border p-3">
+                                    <section id="estado1">
+                                        <section class="col-md-12">
+                                            <label><strong>Número de vale</strong></label>
+                                            <input type="text" placeholder="Introduce el numero del vale"
+                                                class="form-control" name="NoVale">
+                                        </section>
+                                    </section>
                                 </section>
                             </section>
                         </section>
@@ -64,7 +68,9 @@
     crossorigin="anonymous"></script>
 <script src="script.js"></script>
 <script>
-    $(document).ready(function () {
+
+    // Arregla un bug con los inputs en la versión mobile
+    function fixMobileOffScreen() {
         let initialOffset = $('body').scrollTop();
         $('input, textarea, select').focus(function (e) {
             let offset = $(e.target).offset();
@@ -75,6 +81,35 @@
             // Reset to the initial offset
             $('body').scrollTop(initialOffset);
         });
+    }
+
+    let qty = 1;
+
+    // Agregar estados
+    $('#qty-estados').change(function () {
+        qty = $('#qty-estados').val();
+        estado = '';
+
+        if (qty <= 50) {
+            Array.apply(null, { length: qty }).map(Number.call, Number).forEach((element, i) => {
+                estado += `
+                    <section id="estado${i + 1}">
+                        <section class="col-md-12">
+                            <label><strong>Número de vale</strong></label>
+                            <input type="text" placeholder="Introduce el numero del vale"
+                                class="form-control" name="NoVale">
+                        </section>
+                    </section>
+                `;
+            });
+            estado == '' ? $('#estados').html(`<h3>Agrega un estado</h3>`) : $('#estados').html(estado);
+        } else {
+            $('#estados').html(`<h3>El limite de estados es de 50</h3>`)
+        }
+    });
+
+    $(document).ready(function () {
+        fixMobileOffScreen();
     });
 </script>
 
